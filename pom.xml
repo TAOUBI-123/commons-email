@@ -70,6 +70,9 @@
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <sonar.projectKey>TAOUBI-123_commons-email</sonar.projectKey>
+    <sonar.organization>taoubi-123</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <project.build.outputTimestamp>2024-01-01T00:00:00Z</project.build.outputTimestamp>
@@ -117,11 +120,16 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-checkstyle-plugin</artifactId>
+          <artifactId>maven-checkstyle-plugin</artifactId>    
           <configuration>
             <configLocation>${commons.parent.dir}/src/conf/checkstyle.xml</configLocation>
             <enableRulesSummary>false</enableRulesSummary>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>3.9.1.2184</version>
         </plugin>
         <plugin>
           <groupId>com.github.spotbugs</groupId>
