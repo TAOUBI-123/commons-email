@@ -692,26 +692,25 @@ public class EmailTest extends AbstractEmailTest {
     }
 
     @Test
-    public void testSendBadHostName() throws EmailException {
-        // Arrange
-        MockEmailConcrete email = new MockEmailConcrete();
-        email.setSubject("Test Email #1 Subject");
-        email.setHostName("bad.host.com");
-        email.setFrom("me@home.com");
-        email.addTo("me@home.com");
-        email.addCc("me@home.com");
-        email.addBcc("me@home.com");
-        email.addReplyTo("me@home.com");
-        email.setContent("test string object", " ; charset=" + EmailConstants.US_ASCII);
-    
-        // Act and Assert
-        EmailException e = assertThrows(EmailException.class, () -> {
-            email.send(); // Focus the lambda on the single operation causing the exception
-        });
-    
-        // Assert the cause of the exception
-        assertTrue(e.getCause() instanceof ParseException);
-    }
+public void testSendBadHostName() throws EmailException {
+    // Arrange
+    MockEmailConcrete mockEmail = new MockEmailConcrete(); // Renamed from "email" to "mockEmail"
+    mockEmail.setSubject("Test Email #1 Subject");
+    mockEmail.setHostName("bad.host.com");
+    mockEmail.setFrom("me@home.com");
+    mockEmail.addTo("me@home.com");
+    mockEmail.addCc("me@home.com");
+    mockEmail.addBcc("me@home.com");
+    mockEmail.addReplyTo("me@home.com");
+    mockEmail.setContent("test string object", " ; charset=" + EmailConstants.US_ASCII);
+
+    // Act and Assert
+    EmailException e = assertThrows(EmailException.class, mockEmail::send); // Use mockEmail here
+
+    // Assert the cause of the exception
+    assertTrue(e.getCause() instanceof ParseException);
+}
+
 
     @Test
     public void testSendCorrectSmtpPortContainedInException() {
