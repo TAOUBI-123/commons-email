@@ -692,22 +692,25 @@ public class EmailTest extends AbstractEmailTest {
     }
 
     @Test
-    public void testSendBadHostName() {
-        final EmailException e = assertThrows(EmailException.class, () -> {
-            getMailServer();
-            email = new MockEmailConcrete();
-            email.setSubject("Test Email #1 Subject");
-            email.setHostName("bad.host.com");
-            email.setFrom("me@home.com");
-            email.addTo("me@home.com");
-            email.addCc("me@home.com");
-            email.addBcc("me@home.com");
-            email.addReplyTo("me@home.com");
-            email.setContent("test string object", " ; charset=" + EmailConstants.US_ASCII);
-            email.send();
+    public void testSendBadHostName() throws EmailException {
+        // Arrange
+        MockEmailConcrete email = new MockEmailConcrete();
+        email.setSubject("Test Email #1 Subject");
+        email.setHostName("bad.host.com");
+        email.setFrom("me@home.com");
+        email.addTo("me@home.com");
+        email.addCc("me@home.com");
+        email.addBcc("me@home.com");
+        email.addReplyTo("me@home.com");
+        email.setContent("test string object", " ; charset=" + EmailConstants.US_ASCII);
+    
+        // Act and Assert
+        EmailException e = assertThrows(EmailException.class, () -> {
+            email.send(); // Focus the lambda on the single operation causing the exception
         });
+    
+        // Assert the cause of the exception
         assertTrue(e.getCause() instanceof ParseException);
-        stopServer();
     }
 
     @Test
